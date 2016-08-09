@@ -1,0 +1,26 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int speed = 0, time = 0, flag = 0, dist = 0, elapseTime = 0;
+    cin >> flag;
+    while(flag != -1)
+    {
+        for(int i = 0; i < flag; i++)
+        {
+            cin >> speed >> time;
+            if (time > elapseTime)
+            {
+                dist += speed*(time-elapseTime);
+			}
+			elapseTime = time;
+        }
+        cout << dist << " miles" << endl;
+        dist = 0;
+        elapseTime = 0;
+        cin >> flag;
+    }
+    return 0;
+}
