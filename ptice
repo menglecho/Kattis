@@ -1,0 +1,109 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string repeat( const string &word, int times ) {
+   string result ;
+   result.reserve(times*word.length()); // avoid repeated reallocation
+   for ( int a = 0 ; a < times ; a++ )
+      result += word ;
+   return result ;
+}
+
+int maxvalue(int a, int b, int c){
+    int max = (a < b) ? b : a;
+    return (( max < c ) ? c : max );
+}
+
+
+int main()
+{
+    string Adrian ("ABCABCABCABC");
+    string Bruno ("BABCBABCBABC");
+    string Goran = "CCAABBCCAABB";
+
+    int tot_A = 0, tot_B = 0, tot_G = 0;
+
+    int n;
+    cin >> n;
+    string input;
+    cin >> input;
+
+    if(n > Adrian.size() && n/Adrian.size() == 1){
+        Adrian += Adrian.substr(0,n%Adrian.size());
+
+        Bruno += Bruno.substr(0,n%Bruno.size());
+
+        Goran += Goran.substr(0,n%Goran.size());
+    }
+
+    if(n > Adrian.size() && n/Adrian.size() > 1){
+        Adrian = repeat(Adrian, n/Adrian.size());
+        Adrian += Adrian.substr(0,n%Adrian.size());
+
+        Bruno = repeat(Bruno, n/Bruno.size());
+        Bruno += Bruno.substr(0,n%Bruno.size());
+
+        Goran = repeat(Goran, n/Goran.size());
+        Goran += Goran.substr(0,n%Goran.size());
+    }
+
+    if(n < Adrian.size()){
+        Adrian = Adrian.substr(0,n);
+
+        Bruno = Bruno.substr(0,n);
+
+        Goran = Goran.substr(0,n);
+    }
+
+    for(int i = 0; i < n; i++){
+        if(Adrian[i] == input[i]){
+            tot_A += 1;
+        }
+        if(Bruno[i] == input[i]){
+            tot_B += 1;
+        }
+        if(Goran[i] == input[i]){
+            tot_G += 1;
+        }
+    }
+    int result = maxvalue(tot_A, tot_B, tot_G);
+
+    if(result == tot_A && result != tot_B && result != tot_G){
+        cout << tot_A << endl;
+        cout << "Adrian" << endl;
+    }
+    if(result == tot_B && result != tot_A && result != tot_G){
+        cout << tot_B << endl;
+        cout << "Bruno" << endl;
+    }
+    if(result == tot_G && result != tot_A && result != tot_B){
+        cout << tot_G << endl;
+        cout << "Goran" << endl;
+    }
+    if(result == tot_A && result == tot_B && result != tot_G){
+        cout << tot_B << endl;
+        cout << "Adrian" << endl;
+        cout << "Bruno" << endl;
+    }
+    if(result == tot_B && result == tot_G && result != tot_A){
+        cout << tot_B << endl;
+        cout << "Bruno" << endl;
+        cout << "Goran" << endl;
+    }
+    if(result == tot_A && result == tot_G && result != tot_B){
+        cout << tot_A << endl;
+        cout << "Adrian" << endl;
+        cout << "Goran" << endl;
+    }
+    if(result == tot_A && result == tot_B && result == tot_G){
+        cout << tot_A << endl;
+        cout << "Adrian" << endl;
+        cout << "Bruno" << endl;
+        cout << "Goran" << endl;
+
+    }
+
+    return 0;
+}
